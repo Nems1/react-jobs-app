@@ -1,5 +1,6 @@
 import { useState } from 'react';
-const AddJobPage = () => {
+import { useNavigate } from 'react-router-dom';
+const AddJobPage = ({ addJobSubmit }) => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState('Full-Time');
   const [location, setLocation] = useState("");
@@ -7,8 +8,10 @@ const AddJobPage = () => {
   const [salary, setSalary] = useState("Under $50K");
   const [companyName, setCompanyName] = useState("");
   const [companyDescription, setCompanyDescription] = useState("");
-  const [contactEmail, setCompanyEmail] = useState("");
-  const [contactPhone, setCompanyPhone] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactPhone, setContactPhone] = useState("");
+  //intialize navigate
+  const navigate = useNavigate();
   // submit form 
   const submitForm = (e) => { 
     e.preventDefault();
@@ -25,7 +28,10 @@ const AddJobPage = () => {
         contactPhone,
       }
     }
-    console.log(newJob);
+    // Invoke add job submit 
+    addJobSubmit(newJob);
+    // redirect to jobs page
+    return navigate('/jobs');
   }
   return (
     <section className='bg-indigo-50'>
@@ -185,8 +191,8 @@ const AddJobPage = () => {
                 className='border rounded w-full py-2 px-3'
                 placeholder='Email address for applicants'
                 required
-                value={companyemail}
-                onChange={(e) => setCompanyEmail(e.target.value)}
+                value={contactEmail}
+                onChange={(e) => setContactEmail(e.target.value)}
               />
             </div>
             <div className='mb-4'>
@@ -202,8 +208,8 @@ const AddJobPage = () => {
                 name='contact_phone'
                 className='border rounded w-full py-2 px-3'
                 placeholder='Optional phone for applicants'
-                value={companyPhone}
-                onChange={(e) => setCompanyPhone(e.target.value)}
+                value={contactPhone}
+                onChange={(e) => setContactPhone(e.target.value)}
               />
             </div>
 
