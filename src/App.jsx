@@ -10,9 +10,17 @@ import AddJobPage from './pages/AddJobPage';
 import NotFoundPage from './pages/404NotFoundPage';
 
 const App = () => {
-  // add new job function
-  const addJob = (newJob) => { 
-  console.log(newJob);
+  // add new job 
+  const addJob = async (newJob) => { 
+  // post the new job to the backend
+    const res = await fetch('/api/jobs', {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newJob),
+    });
+    return;
   }
 
   const router = createBrowserRouter(
